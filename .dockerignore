@@ -1,0 +1,31 @@
+# Cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build files
+.DS_Store
+*.log
+
+# Testing
+coverage.xml
+htmlcov/
+
+# Local development
+.env
+.env.local
+.env.*.local
+
+# Python
+venv/
+env/
+ENV/
+
+# Task files
+task-info.yaml

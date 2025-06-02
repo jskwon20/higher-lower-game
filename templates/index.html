@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Higher or Lower 게임</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>팔로워 수 비교 게임</h1>
+            <div class="score-container">
+                <span>점수: <span id="score">0</span></span>
+                <span>최고 점수: <span id="highScore">0</span></span>
+            </div>
+        </header>
+
+        <main>
+            <div class="vs-container">
+                <div class="account-container">
+                    <div class="card" id="cardA">
+                        <div class="card-info">
+                            <h3 id="nameA">로딩 중...</h3>
+                            <p id="descA"></p>
+                            <p id="countryA"></p>
+                        </div>
+                        <div class="follower-count" id="followerCountA"></div>
+                    </div>
+                    <button class="higher-btn" data-account="a">이 계정이 더 많아요</button>
+                </div>
+
+                <div class="vs">VS</div>
+
+                <div class="account-container">
+                    <div class="card" id="cardB">
+                        <div class="card-info">
+                            <h3 id="nameB">로딩 중...</h3>
+                            <p id="descB"></p>
+                            <p id="countryB"></p>
+                        </div>
+                        <div class="follower-count" id="followerCountB"></div>
+                    </div>
+                    <button class="higher-btn" data-account="b">이 계정이 더 많아요</button>
+                </div>
+            </div>
+            <div class="feedback"></div>
+        </main>
+
+        <footer>
+            <button id="playAgain">Play Again</button>
+        </footer>
+    </div>
+    <script src="{{ url_for('static', filename='game.js') }}"></script>
+</body>
+</html>
