@@ -42,7 +42,7 @@ async function handleChoice(selectedAccount) {
     
     if (isCorrect) {
         score++;
-        feedback.textContent = '정답입니다!';
+        feedback.textContent = '정답!';
         feedback.style.color = '#4CAF50';
         if (score > highScore) {
             highScore = score;
