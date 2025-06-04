@@ -1,24 +1,40 @@
-FROM python:3.11-slim
+# First stage: Build dependencies
+FROM python:3.11-slim as builder
 
-# 필요한 패키지 설치
-RUN pip install flask
-
-# 작업 디렉토리 설정
+# Set working directory
 WORKDIR /app
 
-# 필요한 디렉토리 생성
-RUN mkdir -p /app/templates /app/static
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
 
-# 필요한 파일 복사
-COPY main.py game_data.py ./
-COPY templates/ /app/templates/
-COPY static/ /app/static/
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
 
-# 권한 설정
-RUN chmod -R 755 /app
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --user -r requirements.txt
 
-# 포트 설정
-EXPOSE 5000
+# Second stage: Runtime
+FROM python:3.11-slim
 
-# 실행 명령어
-CMD ["python", "main.py"]
+# Set working directory
+WORKDIR /app
+
+# Copy Python dependencies from builder
+COPY --from=builder /root/.local /root/.local
+
+# Copy application code
+COPY . .
+
+# Make sure scripts in .local are usable
+ENV PATH=/root/.local/bin:$PATH \
+    PYTHONPATH=/app
+
+# Expose the port the app runs on
+EXPOSE 8000
+
+# Command to run the application
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
