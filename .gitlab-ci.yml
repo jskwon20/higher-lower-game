@@ -1,0 +1,9 @@
+stages:
+  - test
+
+test-runner:
+  stage: test
+  tags:
+    - hlgame
+  script:
+    - echo "✅ GitLab Runner on EKS is working!"
